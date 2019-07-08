@@ -3,7 +3,7 @@ import sys
 
 white = (255,255,255)
 
-size = [800, 600]
+size = [400,300]
 
 class MAZE:
 
