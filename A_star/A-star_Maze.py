@@ -1,6 +1,6 @@
 import pygame
 import sys
-import A_star
+from A_star import A_star
 from time import sleep
 
 white = (255, 255, 255)
@@ -203,6 +203,6 @@ class MAZE:
 if __name__ == "__main__":  # start main
     global answer_path , answer
 
-    answer_path = A_star.main(make_maze,start_point,end_point) # a star 알고리즘 경로
-    answer = len(A_star.main(make_maze,start_point,end_point)) -1 # a star 알고리즘 경로 길이 값
+    answer_path = A_star.main(make_maze, start_point, end_point) # a star 알고리즘 경로
+    answer = len(A_star.main(make_maze, start_point, end_point)) - 1 # a star 알고리즘 경로 길이 값
     MAZE().run()

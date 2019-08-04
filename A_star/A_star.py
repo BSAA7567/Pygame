@@ -52,6 +52,9 @@ def astar(maze, start, end):
 
             if maze[node_position[0]][node_position[1]] == 1:  # 이동될 지점이 벽일때
                 continue
+            elif node_position[1]==start[1]-1 and current_node.position==start_node.position:
+                continue
+
 
             new_node = Node(current_node, node_position)
 
