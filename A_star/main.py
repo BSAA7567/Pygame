@@ -1,6 +1,6 @@
 from gridview import GridView
 from random_maze import RandomMaze
-import A_star
+import A_star.A_star_logic
 from time import sleep
 
 # from path_finder import MazePathFinder
@@ -9,6 +9,9 @@ import pygame
 import sys
 
 pygame.init()
+
+DFS = 1
+Kruskal = 2
 
 width = 984
 height = 504
@@ -39,11 +42,11 @@ def main(maze_method, speed=0.010, mode=0):
     check =0
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption("A_star_Maze")
-    pygame.display.set_icon(pygame.image.load("C:/Users/UNKNOWN/Documents/GitHub/Pygame/img/maze.png"))
+    #pygame.display.set_icon(pygame.image.load(""))
     clock = pygame.time.Clock()
     maze, cell_list = maze_method()  # 랜덤으로 생성된 2차원 리스트 미로와 xxx 좌표가 담긴 리스트를 받는다
 
-    path = A_star.main(maze,start_point,end_point)
+    path = A_star.A_star_logic.main(maze,start_point,end_point)
     index = 0
     maze_finished = False
 
@@ -61,9 +64,14 @@ def main(maze_method, speed=0.010, mode=0):
             index = 0
             # path_index = 0
             maze, cell_list = maze_method()
-            path = A_star.main(maze, start_point, end_point)
+            path = A_star.A_star_logic.main(maze, start_point, end_point)
             maze_finished = False
             check=0
+        elif press_key[pygame.K_d]:
+            main(maze_method=get_maze_method(DFS), mode=1)
+            pass
+        elif press_key[pygame.K_k]:
+            main(maze_method=get_maze_method(Kruskal), mode=1)
 
         # print index
 
@@ -136,8 +144,6 @@ def main(maze_method, speed=0.010, mode=0):
                 return 0'''
 
 if __name__ == '__main__':
-    DFS = 1
-    Kruskal = 2
 
     method = get_maze_method(DFS)  # 미로를 제작할 알고리즘 선택
 

@@ -1,6 +1,6 @@
 import pygame
 import sys
-from A_star import A_star
+from A_star import A_star_logic
 from time import sleep
 
 white = (255, 255, 255)
@@ -37,7 +37,7 @@ class MAZE:
 
         self.display = pygame.display.set_mode(size)  # display setup
         pygame.display.set_caption('maze')  # caption setup
-        pygame.display.set_icon(pygame.image.load('img/maze.png'))  # icon setup
+        pygame.display.set_icon(pygame.image.load("C:/Users/UNKNOWN/Documents/GitHub/Pygame/img/maze.png"))  # icon setup
         self.fps = pygame.time.Clock()  # fps setup
 
         self.player_x = 70  # pixcel x
@@ -203,6 +203,6 @@ class MAZE:
 if __name__ == "__main__":  # start main
     global answer_path , answer
 
-    answer_path = A_star.main(make_maze, start_point, end_point) # a star 알고리즘 경로
-    answer = len(A_star.main(make_maze, start_point, end_point)) - 1 # a star 알고리즘 경로 길이 값
+    answer_path = A_star_logic.main(make_maze, start_point, end_point) # a star 알고리즘 경로
+    answer = len(A_star_logic.main(make_maze, start_point, end_point)) - 1 # a star 알고리즘 경로 길이 값
     MAZE().run()
