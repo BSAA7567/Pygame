@@ -1,2 +1,2 @@
 # Pygame
-Using pygame for make something
+Using pygame for make something(For Study)
