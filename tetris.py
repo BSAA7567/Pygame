@@ -366,7 +366,6 @@ def drawBox(boxx, boxy, color, pixelx=None, pixely=None):
     pg.draw.rect(GAME, COLORS[color], (pixelx , pixely , BOXSIZE - 1, BOXSIZE - 1))
     pg.draw.rect(GAME, LIGHTCOLORS[color], (pixelx + 1, pixely + 1, BOXSIZE - 10, BOXSIZE - 10))
 
-
 def drawNextPiece(piece):
     MFont = pg.font.SysFont('monaco', 50)
     nextSurf = MFont.render('Next:', True, WHITE)

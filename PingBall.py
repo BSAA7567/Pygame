@@ -32,13 +32,10 @@ STATE_GAME_OVER = 3
 
 
 class PB:
-
     def __init__(self):
         pygame.init()
-
         self.screen = pygame.display.set_mode(SCREEN_SIZE)
         pygame.display.set_caption("bricka (a breakout clone by codeNtronix.com)")
-
         self.clock = pygame.time.Clock()
 
         if pygame.font:
