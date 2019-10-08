@@ -160,21 +160,21 @@ def main():
     pg.display.set_caption('Shooting')
     fps = pg.time.Clock()
 
-    player = pg.image.load('img/plane.png')
+    player = pg.image.load('../img/plane.png')
     player = pg.transform.scale(player,(130,70))
 
-    backgr = pg.image.load('img/sky.png')
+    backgr = pg.image.load('../img/sky.png')
     backgr2 = backgr.copy()
 
-    enemy = pg.image.load('img/enemy.png')
+    enemy = pg.image.load('../img/enemy.png')
     enemy = pg.transform.flip(enemy,1,0)
     enemy= pg.transform.scale(enemy,(150, 90))
 
-    bullet = pg.image.load('img/bullet.png')
+    bullet = pg.image.load('../img/bullet.png')
     bullet = pg.transform.rotate(bullet,180)
     bullet = pg.transform.scale(bullet, (50,10))
 
-    boom = pg.image.load('img/boom.png')
+    boom = pg.image.load('../img/boom.png')
     boom = pg.transform.scale(boom,(50,50))
 
     run()
