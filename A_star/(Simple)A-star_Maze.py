@@ -1,6 +1,6 @@
 import pygame
 import sys
-from A_star import A_star_logic
+import A_star_logic
 from time import sleep
 
 white = (255, 255, 255)
@@ -37,7 +37,7 @@ class MAZE:
 
         self.display = pygame.display.set_mode(size)  # display setup
         pygame.display.set_caption('maze')  # caption setup
-        pygame.display.set_icon(pygame.image.load("C:/Users/UNKNOWN/Documents/GitHub/Pygame/img/maze.png"))  # icon setup
+#        pygame.display.set_icon(pygame.image.load("C:/Users/UNKNOWN/Documents/GitHub/Pygame/img/maze.png"))  # icon setup
         self.fps = pygame.time.Clock()  # fps setup
 
         self.player_x = 70  # pixcel x

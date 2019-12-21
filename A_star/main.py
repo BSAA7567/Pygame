@@ -1,6 +1,6 @@
 from gridview import GridView
 from random_maze import RandomMaze
-import A_star.A_star_logic
+import A_star_logic
 from time import sleep
 
 # from path_finder import MazePathFinder
@@ -46,7 +46,7 @@ def main(maze_method, speed=0.010, mode=0):
     clock = pygame.time.Clock()
     maze, cell_list = maze_method()  # 랜덤으로 생성된 2차원 리스트 미로와 xxx 좌표가 담긴 리스트를 받는다
 
-    path = A_star.A_star_logic.main(maze,start_point,end_point)
+    path = A_star_logic.main(maze,start_point,end_point)
     index = 0
     maze_finished = False
 
@@ -64,7 +64,7 @@ def main(maze_method, speed=0.010, mode=0):
             index = 0
             # path_index = 0
             maze, cell_list = maze_method()
-            path = A_star.A_star_logic.main(maze, start_point, end_point)
+            path = A_star_logic.main(maze, start_point, end_point)
             maze_finished = False
             check=0
         elif press_key[pygame.K_d]:
