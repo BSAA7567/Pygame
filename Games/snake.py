@@ -6,11 +6,29 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 black = (0, 0, 0)
 white = (255, 255, 255)
-brown = (165, 42, 42)
+yellow = (255, 204, 0)
 
-Size = [600, 450]
-width=Size[0]
-height=Size[1]
+Size = [400, 350]
+width = Size[0]
+height = Size[1]
+
+def gameOver():
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+
+        GAME.fill(black)
+        endFont = pg.font.SysFont('times new roman', 60)
+        endSurf = endFont.render("Game Over", True, red)
+        GAME.blit(endSurf, ((width // 2)-130, (height // 2)-50))
+
+        reFont = pg.font.SysFont('monaco', 40)
+        reSurf = reFont.render("Press R restart",True, white)
+        GAME.blit(reSurf, ((width // 2) - 100, (height // 2) + 50))
+
+        pg.display.flip()
 
 def showScore():
     SFont = pg.font.SysFont('monaco', 32)
@@ -18,22 +36,24 @@ def showScore():
     GAME.blit(Ssurf, (5,0))
 
 def run():
-    check = True
-    global score,speed,level
-    objSize = 10
+    global score,speed,level_up
+
+    objSize = 13
+
     score = 0
     speed = 5
-    level = 5
+    level_up = 5
+
     state = ''
     change = ''
 
-    snakeHead = [random.randrange(0, width - objSize), random.randrange(0, height - objSize)]
+    snakeHead = [random.randrange(0, width // 2), random.randrange(0, height // 2)]
     snakeBody = [snakeHead]
 
-    food = [random.randrange(0, width - objSize), random.randrange(0, height - objSize)]
+    food = [random.randrange(0, width // 2), random.randrange(0, height // 2)]
     foodSpawn = True
 
-    while check:
+    while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 check = False
@@ -78,8 +98,9 @@ def run():
         else:
             snakeBody.pop()
 
-        if score == level:
-            level += 10
+        if score == level_up:
+            print('Level up!')
+            level_up += 10
             speed += 1
 
         if foodSpawn == False:
@@ -92,92 +113,34 @@ def run():
             pg.draw.rect(GAME, green, pg.Rect(pos[0], pos[1], objSize, objSize))
 
         pg.draw.rect(GAME, red, pg.Rect(snakeHead[0], snakeHead[1], objSize, objSize))
-        pg.draw.rect(GAME, brown, pg.Rect(food[0], food[1], objSize, objSize))
+        pg.draw.circle(GAME, yellow, (food[0], food[1]),objSize-5)
 
         if drawHead.bottom > height:
             gameOver()
-            check=False
         elif drawHead.top < 0:
             gameOver()
-            check=False
         elif drawHead.left < 0:
             gameOver()
-            check=False
         elif drawHead.right > width:
             gameOver()
-            check=False
 
         for tail in snakeBody[1:]:
             if snakeHead == tail:
                 gameOver()
-                check = False
         showScore()
-        pg.display.flip()
+        pg.display.update()
         FPS.tick(30)
 
 def main():
     global GAME,FPS
+
     pg.init()
 
     GAME = pg.display.set_mode(Size)
     pg.display.set_caption("Snake Game")
     FPS = pg.time.Clock()
 
-    check = True
-    while check:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                check = False
-                sys.exit()
+    run()
 
-        GAME.fill(black)
-
-        endFont = pg.font.SysFont('Stencil', 85)
-        reFont = pg.font.SysFont('monaco', 50)
-
-        GOsurf = endFont.render("SNAKE GAME", True, green)
-        GAME.blit(GOsurf, ((width / 2) - 250, (height / 2) - 50))
-
-        pg.draw.rect(GAME, white, pg.Rect((width / 2) - 60, (height / 2) + 90, 120, 50))
-        text = reFont.render("START", True, black)
-        GAME.blit(text, ((width / 2) - 55, (height / 2) + 100))
-
-        cur = pg.mouse.get_pos()
-        click = pg.mouse.get_pressed()
-        if ((width / 2) - 60) + 120 > cur[0] > (width / 2) - 60 and ((height / 2) + 90) + 50 > cur[1] > (height / 2) + 90:
-            if (click[0] == 1):
-                run()
-                check=False
-
-        pg.display.flip()
-
-def gameOver():
-    check =True
-    while check:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                check = False
-                sys.exit()
-
-        GAME.fill(black)
-        endFont = pg.font.SysFont('times new roman', 72)
-        reFont = pg.font.SysFont('monaco', 70)
-
-        GOsurf = endFont.render("Game Over", True, red)
-        GAME.blit(GOsurf, ((width / 2) - 150, (height / 2) - 50))
-
-        Ssurf = endFont.render("Score  :  {0}".format(score), True, red)
-        GAME.blit(Ssurf, ((width / 2) - 130, (height / 2) + 50))
-
-        pg.draw.rect(GAME, white, pg.Rect((width / 2) - 60, (height / 2) + 150, 120, 50))
-        text=reFont.render("RE?",True,black)
-        GAME.blit(text, ((width / 2) - 45, (height / 2) + 155))
-
-        cur = pg.mouse.get_pos()
-        click = pg.mouse.get_pressed()
-        if ((width / 2) - 60)+120>cur[0]>(width / 2)-60 and ((height / 2) + 150)+50>cur[1]>(height / 2)+150:
-            if(click[0]==1):
-                run()
-        pg.display.flip()
-
-main()
+if __name__ == "__main__":
+    main()
