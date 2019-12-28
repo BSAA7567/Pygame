@@ -1,6 +1,6 @@
+import pygame as pg
 import random
 import sys
-import pygame as pg
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -84,7 +84,7 @@ def run():
         for i in range(len(foods)):
             pg.draw.rect(GAME, GREEN, foods[i])
 
-        pg.display.flip()
+        pg.display.update()
         FPS.tick(60)
 
 def main():
@@ -97,5 +97,5 @@ def main():
 
     run()
 
-main()
-
+if __name__ == "__main__":
+    main()
