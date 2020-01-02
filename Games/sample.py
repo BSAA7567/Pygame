@@ -23,7 +23,7 @@ def run():
     FOODSPAWN = 20
     FOODSIZE = 20
 
-    player = pg.Rect(random.randint(0, width // 10), random.randint(0, height // 10), PLAYERSIZE, PLAYERSIZE)
+    player = pg.Rect(10, 10, PLAYERSIZE, PLAYERSIZE)
 
     foods = []
     for i in range(0, FOODSPAWN):
@@ -77,7 +77,7 @@ def run():
 
         pg.draw.rect(GAME, WHITE, player)
 
-        for food in foods[:]:
+        for food in foods:
             if player.colliderect(food):
                 foods.remove(food)
 
