@@ -1,7 +1,7 @@
 import pygame
 import sys
-import A_star_logic
 from time import sleep
+import A_star_logic
 
 white = (255, 255, 255)
 gold = (255, 204, 0)
@@ -37,7 +37,6 @@ class MAZE:
 
         self.display = pygame.display.set_mode(size)  # display setup
         pygame.display.set_caption('maze')  # caption setup
-#        pygame.display.set_icon(pygame.image.load("C:/Users/UNKNOWN/Documents/GitHub/Pygame/img/maze.png"))  # icon setup
         self.fps = pygame.time.Clock()  # fps setup
 
         self.player_x = 70  # pixcel x
@@ -69,7 +68,7 @@ class MAZE:
                 mx = 0
                 my += 1
 
-    def char(self): # setup character
+    def Character(self): # setup character
         self.player = pygame.Rect(self.player_x, self.player_y, player_size, player_size)
 
     def move(self): # check the key press and move
@@ -163,12 +162,12 @@ class MAZE:
                     pygame.quit()
                     sys.exit()
 
-            self.fps.tick(30)
+            self.fps.tick(60)
             self.display.fill(black)
 
             self.move()
             self.maze()
-            self.char()
+            self.Character()
             self.show()
 
             pygame.draw.circle(self.display, green, (self.player.left, self.player.top), player_size)  # draw character
@@ -198,7 +197,7 @@ class MAZE:
                         mx = 0
                         my += 1
 
-            pygame.display.flip()
+            pygame.display.update()
 
 if __name__ == "__main__":  # start main
     global answer_path , answer

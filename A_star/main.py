@@ -1,14 +1,9 @@
-from gridview import GridView
-from random_maze import RandomMaze
-import A_star_logic
-from time import sleep
-
-# from path_finder import MazePathFinder
-
 import pygame
 import sys
-
-pygame.init()
+from gridview import GridView
+from random_maze import RandomMaze
+from time import sleep
+import A_star_logic
 
 DFS = 1
 Kruskal = 2
@@ -37,12 +32,11 @@ def get_maze_method(option):  # 선택 값에 따른 알고리즘으로 미로 �
     else:
         return None
 
-
 def main(maze_method, speed=0.010, mode=0):
+    pygame.init()
     check =0
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption("A_star_Maze")
-    #pygame.display.set_icon(pygame.image.load(""))
     clock = pygame.time.Clock()
     maze, cell_list = maze_method()  # 랜덤으로 생성된 2차원 리스트 미로와 xxx 좌표가 담긴 리스트를 받는다
 
@@ -113,40 +107,9 @@ def main(maze_method, speed=0.010, mode=0):
                 index += 1
                 pygame.display.update()
 
-
-'''def parser_arg(argv):
-        """
-        parser the arguments,
-        python main.py [OPTION]:
-                -d --dfs: use dfs algorithm to generate the maze, and return 1(default value)
-                -k --kruscal: use kruscal algorithm to generate the maze, and return 2
-        """
-        args = argv[1:]
-        if len(args) == 0:
-                return 1
-        elif len(args) > 1:
-                print 'Error option'
-                print 'Usage:'
-                print "(python) main.py [OPTION]: \n" + \
-                "  -d --dfs: use dfs algorithm to generate the maze(default option)\n" +\
-                "  -k --kruscal: use kruscal algorithm to generate the maze "
-                return 0
-        elif args[0] == '-d' or args[0] == '--dfs':
-                return 1
-        elif args[0] == '-k' or args[0] == '--kruscal':
-                return 2
-        else:
-                print 'Error option'
-                print 'Usage:'
-                print "(python) main.py [OPTION]: \n" + \
-                "  -d --dfs: use dfs algorithm to generate the maze(default option)\n" +\
-                "  -k --kruscal: use kruscal algorithm to generate the maze "
-                return 0'''
-
 if __name__ == '__main__':
-
     method = get_maze_method(DFS)  # 미로를 제작할 알고리즘 선택
-
+    
     if method:
         main(maze_method=method, mode=1)
     else:

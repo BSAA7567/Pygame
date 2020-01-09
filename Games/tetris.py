@@ -154,11 +154,10 @@ x = WIDTH / 2
 y = HEIGHT / 2
 
 def end(score): # 게임 오버 화면
-    check = True
-    while check:
+    while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                check = False
+                pg.quit()
                 sys.exit()
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_r: # R키가 눌렸을 경우 게임 재시작
@@ -179,75 +178,6 @@ def end(score): # 게임 오버 화면
         GAME.blit(text, ( x - 180 , y + 180 ) )
 
         pg.display.update()
-
-def Run():
-    pg.init()
-    global GAME, FPS, MainFont
-    GAME=pg.display.set_mode((800,640))
-    FPS=pg.time.Clock()
-    MainFont=pg.font.SysFont('monaco', 50)
-
-    board = getBlankBoard() # 게임 맵에 해당하는 보드 생성
-    score = 0 # 게임 스코어 초기화
-    level, fallsp = ingamesp(score) # 게임 레벨과 블록 떨어지는 속도 값 초기화
-    lastFallTime = time.time() # 1초 간격으로 블록이 떨어지는 효과를 위한 시간 체킹
-    fallingPiece = getNewPiece() # 떨어지는 블록 생성
-    nextPiece = getNewPiece() # 다음 블록 생성
-
-    check = True
-    while check:
-        if fallingPiece == None: # 떨어지는 블록이 없을 경우
-            fallingPiece = nextPiece # 다음 블록으로 교체
-            nextPiece = getNewPiece() # 새로운 블록을 받는다
-            lastFallTime = time.time()
-
-            if not CHpiece(board, fallingPiece): # 블록이 게임 보드 보다 높게 쌓였을 경우 게임 오버
-                end(score) # 게임 오버로 변경
-
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                check = False
-                sys.exit()
-
-            elif event.type == pg.KEYDOWN:
-                if event.key == pg.K_LEFT and CHpiece(board, fallingPiece, X=-1): # 왼쪽 방향키가 눌렸을 때
-                    fallingPiece['x'] -= 1 # 떨어지는 블록 왼쪽으로 이동
-                elif event.key == pg.K_RIGHT and CHpiece(board, fallingPiece, X=1): # 오른쪽 방향키가 눌렸을 때
-                    fallingPiece['x'] += 1 # 떨어지는 블록 오른쪽 이동
-                elif event.key == pg.K_DOWN and CHpiece(board, fallingPiece, Y=1): # 밑 방향키가 눌렸을 때
-                        fallingPiece['y'] += 1 # 떨어지는 블록 밑으로 이동
-                elif event.key == pg.K_SPACE: # 스페이스 키가 눌렸을 때
-                    for i in range(BOARDHEIGHT):
-                        if not CHpiece(board, fallingPiece, Y=i):
-                            break # 떨어지려는 구간이 더 이상 없을 경우 스페이스 기능 block
-                    fallingPiece['y'] += i - 1 # 블록을 제일 밑으로 떨어트린다
-                elif event.key == pg.K_UP: # 윗 방향키가 눌렸을 때
-                    fallingPiece['rotation'] = (fallingPiece['rotation'] + 1) % len(PIECES[fallingPiece['shape']]) # 블록의 모양 변화
-                    if not CHpiece(board, fallingPiece):
-                        fallingPiece['rotation'] = (fallingPiece['rotation'] - 1) % len(PIECES[fallingPiece['shape']])
-                elif event.key == pg.K_r: # R키가 눌렸을 때
-                    Run() # 게임 재시작
-
-        if time.time() - lastFallTime > fallsp: # 블록이 제시간에 맞게 떨어진 경우
-            if not CHpiece(board, fallingPiece, Y=1):
-                addToBoard(board, fallingPiece) # 보드에 해당 블록을 채운다
-                score += remove(board) # 지워진 라인 수 만큼 스코어 증가
-                level, fallsp = ingamesp(score) # 레벨과 떨어지는 속도 조정
-                fallingPiece = None # 떨어지는 블록은 현재 없다
-            else:
-                #1초 간격으로 블록이 떨어지게 y 좌표 변화
-                fallingPiece['y'] += 1
-                lastFallTime = time.time()
-
-        GAME.fill(BLACK) # 게임 배경색을 검은색으로
-        drawBoard(board) # 보드를 화면에 렌더링
-        drawStatus(score, level) # 스코어와 레벨 텍스트 렌더링
-        NextPiece_info(nextPiece) # 다음 블록 렌더링
-        if fallingPiece != None:
-            drawPiece(fallingPiece) # 떨어지는 블록 렌더링
-
-        pg.display.update() # 디스플레이 업데이트
-        FPS.tick(30) # 30 프레임으로 진행
 
 def CHpiece(board, piece, X=0, Y=0):
     for x in range(BOXWIDTH):
@@ -362,6 +292,74 @@ def drawPiece(piece, pixelx=None, pixely=None):
 
 def Pixel(boxx, boxy):
     return (XMARGIN + (boxx * BOXSIZE)), (YMARGIN + (boxy * BOXSIZE))
+
+def Run():
+    pg.init()
+    global GAME, FPS, MainFont
+    GAME=pg.display.set_mode((800,640))
+    FPS=pg.time.Clock()
+    MainFont=pg.font.SysFont('monaco', 50)
+
+    board = getBlankBoard() # 게임 맵에 해당하는 보드 생성
+    score = 0 # 게임 스코어 초기화
+    level, fallsp = ingamesp(score) # 게임 레벨과 블록 떨어지는 속도 값 초기화
+    lastFallTime = time.time() # 1초 간격으로 블록이 떨어지는 효과를 위한 시간 체킹
+    fallingPiece = getNewPiece() # 떨어지는 블록 생성
+    nextPiece = getNewPiece() # 다음 블록 생성
+
+    while True:
+        if fallingPiece == None: # 떨어지는 블록이 없을 경우
+            fallingPiece = nextPiece # 다음 블록으로 교체
+            nextPiece = getNewPiece() # 새로운 블록을 받는다
+            lastFallTime = time.time()
+
+            if not CHpiece(board, fallingPiece): # 블록이 게임 보드 보다 높게 쌓였을 경우 게임 오버
+                end(score) # 게임 오버로 변경
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+
+            elif event.type == pg.KEYDOWN:
+                if event.key == pg.K_LEFT and CHpiece(board, fallingPiece, X=-1): # 왼쪽 방향키가 눌렸을 때
+                    fallingPiece['x'] -= 1 # 떨어지는 블록 왼쪽으로 이동
+                elif event.key == pg.K_RIGHT and CHpiece(board, fallingPiece, X=1): # 오른쪽 방향키가 눌렸을 때
+                    fallingPiece['x'] += 1 # 떨어지는 블록 오른쪽 이동
+                elif event.key == pg.K_DOWN and CHpiece(board, fallingPiece, Y=1): # 밑 방향키가 눌렸을 때
+                        fallingPiece['y'] += 1 # 떨어지는 블록 밑으로 이동
+                elif event.key == pg.K_SPACE: # 스페이스 키가 눌렸을 때
+                    for i in range(BOARDHEIGHT):
+                        if not CHpiece(board, fallingPiece, Y=i):
+                            break # 떨어지려는 구간이 더 이상 없을 경우 스페이스 기능 block
+                    fallingPiece['y'] += i - 1 # 블록을 제일 밑으로 떨어트린다
+                elif event.key == pg.K_UP: # 윗 방향키가 눌렸을 때
+                    fallingPiece['rotation'] = (fallingPiece['rotation'] + 1) % len(PIECES[fallingPiece['shape']]) # 블록의 모양 변화
+                    if not CHpiece(board, fallingPiece):
+                        fallingPiece['rotation'] = (fallingPiece['rotation'] - 1) % len(PIECES[fallingPiece['shape']])
+                elif event.key == pg.K_r: # R키가 눌렸을 때
+                    Run() # 게임 재시작
+
+        if time.time() - lastFallTime > fallsp: # 블록이 제시간에 맞게 떨어진 경우
+            if not CHpiece(board, fallingPiece, Y=1):
+                addToBoard(board, fallingPiece) # 보드에 해당 블록을 채운다
+                score += remove(board) # 지워진 라인 수 만큼 스코어 증가
+                level, fallsp = ingamesp(score) # 레벨과 떨어지는 속도 조정
+                fallingPiece = None # 떨어지는 블록은 현재 없다
+            else:
+                #1초 간격으로 블록이 떨어지게 y 좌표 변화
+                fallingPiece['y'] += 1
+                lastFallTime = time.time()
+
+        GAME.fill(BLACK) # 게임 배경색을 검은색으로
+        drawBoard(board) # 보드를 화면에 렌더링
+        drawStatus(score, level) # 스코어와 레벨 텍스트 렌더링
+        NextPiece_info(nextPiece) # 다음 블록 렌더링
+        if fallingPiece != None:
+            drawPiece(fallingPiece) # 떨어지는 블록 렌더링
+
+        pg.display.update() # 디스플레이 업데이트
+        FPS.tick(60) # 60 프레임으로 진행
 
 if __name__ == "__main__":
     Run()
