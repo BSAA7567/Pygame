@@ -12,12 +12,13 @@ Size = [400, 350]
 width = Size[0]
 height = Size[1]
 
+
 def gameOver():
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
-                sys.exit()            
+                sys.exit()
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_r:
                     run()
@@ -28,18 +29,20 @@ def gameOver():
         GAME.blit(endSurf, ((width // 2)-130, (height // 2)-50))
 
         reFont = pg.font.SysFont('monaco', 40)
-        reSurf = reFont.render("Press R restart",True, white)
+        reSurf = reFont.render("Press R restart", True, white)
         GAME.blit(reSurf, ((width // 2) - 100, (height // 2) + 50))
 
         pg.display.update()
 
+
 def showScore():
     SFont = pg.font.SysFont('monaco', 32)
     Ssurf = SFont.render("Score  :  {0}".format(score), True, black)
-    GAME.blit(Ssurf, (5,0))
+    GAME.blit(Ssurf, (5, 0))
+
 
 def run():
-    global score,speed,level_up
+    global score, speed, level_up
 
     objSize = 13
 
@@ -50,16 +53,18 @@ def run():
     state = ''
     change = ''
 
-    snakeHead = [random.randint(0, width - objSize), random.randint(0, height - objSize)]
+    snakeHead = [random.randint(0, width - objSize),
+                 random.randint(0, height - objSize)]
     snakeBody = [snakeHead]
 
-    food = [random.randint(0, width - objSize), random.randint(0, height - objSize)]
+    food = [random.randint(0, width - objSize),
+            random.randint(0, height - objSize)]
     foodSpawn = True
 
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                check = False
+                pg.quit()
                 sys.exit()
 
             if event.type == pg.KEYDOWN:
@@ -107,16 +112,18 @@ def run():
             speed += 1
 
         if foodSpawn == False:
-            food = [random.randint(0, width - objSize), random.randint(0, height - objSize)]
+            food = [random.randint(0, width - objSize),
+                    random.randint(0, height - objSize)]
             foodSpawn = True
 
         GAME.fill(white)
 
-        for pos in snakeBody:
-            pg.draw.rect(GAME, green, pg.Rect(pos[0], pos[1], objSize, objSize))
+        for sb in snakeBody:
+            pg.draw.rect(GAME, green, pg.Rect(sb[0], sb[1], objSize, objSize))
 
-        pg.draw.rect(GAME, red, pg.Rect(snakeHead[0], snakeHead[1], objSize, objSize))
-        pg.draw.circle(GAME, yellow, (food[0], food[1]),objSize-5)
+        pg.draw.rect(GAME, red, pg.Rect(
+            snakeHead[0], snakeHead[1], objSize, objSize))
+        pg.draw.circle(GAME, yellow, (food[0], food[1]), objSize-5)
 
         if drawHead.bottom > height:
             gameOver()
@@ -130,12 +137,14 @@ def run():
         for tail in snakeBody[1:]:
             if snakeHead == tail:
                 gameOver()
+
         showScore()
         pg.display.update()
         FPS.tick(30)
 
+
 def main():
-    global GAME,FPS
+    global GAME, FPS
 
     pg.init()
     GAME = pg.display.set_mode(Size)
@@ -143,6 +152,7 @@ def main():
     FPS = pg.time.Clock()
 
     run()
+
 
 if __name__ == "__main__":
     main()

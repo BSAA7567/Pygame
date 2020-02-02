@@ -10,6 +10,7 @@ size = [800, 480]
 width = size[0]
 height = size[1]
 
+
 def run():
     moveLeft = False
     moveRight = False
@@ -27,7 +28,8 @@ def run():
 
     foods = []
     for i in range(0, FOODSPAWN):
-        foods.append(pg.Rect(random.randint(0, width - FOODSIZE),random.randint(0, height - FOODSIZE), FOODSIZE, FOODSIZE))
+        foods.append(pg.Rect(random.randint(0, width - FOODSIZE),
+                             random.randint(0, height - FOODSIZE), FOODSIZE, FOODSIZE))
 
     while True:
         for event in pg.event.get():
@@ -62,7 +64,8 @@ def run():
         FOODCHECK += 1
         if FOODCHECK >= FOODSPAWN:
             FOODCHECK = 0
-            foods.append(pg.Rect(random.randint(0, width - FOODSIZE), random.randint(0, height - FOODSIZE), FOODSIZE, FOODSIZE))
+            foods.append(pg.Rect(random.randint(0, width - FOODSIZE),
+                                 random.randint(0, height - FOODSIZE), FOODSIZE, FOODSIZE))
 
         GAME.fill(BLACK)
 
@@ -87,8 +90,9 @@ def run():
         pg.display.update()
         FPS.tick(60)
 
+
 def main():
-    global GAME,FPS
+    global GAME, FPS
 
     pg.init()
     GAME = pg.display.set_mode(size)
@@ -96,6 +100,7 @@ def main():
     FPS = pg.time.Clock()
 
     run()
+
 
 if __name__ == "__main__":
     main()
