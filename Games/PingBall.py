@@ -5,10 +5,10 @@ SCREEN_SIZE = [640, 480]
 WIDTH = SCREEN_SIZE[0]
 HEIGHT = SCREEN_SIZE[1]
 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
-YELLOW = (200, 200, 0)
+black = (0, 0, 0)
+white = (255, 255, 255)
+blue = (0, 0, 255)
+yellow = (200, 200, 0)
 
 BRICK_WIDTH = 60
 BRICK_HEIGHT = 15
@@ -29,6 +29,7 @@ STATE_WAIT = 0
 STATE_PLAYING = 1
 STATE_WON = 2
 STATE_GAME_OVER = 3
+
 
 class PingBall:
     def __init__(self):
@@ -64,7 +65,7 @@ class PingBall:
 
     def draw_bricks(self):
         for brick in self.bricks:
-            pg.draw.rect(self.screen, YELLOW, brick)
+            pg.draw.rect(self.screen, yellow, brick)
 
     def check_input(self):
         keys = pg.key.get_pressed()
@@ -121,13 +122,14 @@ class PingBall:
 
     def show_stats(self):
         if self.font:
-            font_surface = self.font.render("SCORE: " + str(self.score) + " LIVES: " + str(self.lives), False, WHITE)
+            font_surface = self.font.render(
+                "SCORE: " + str(self.score) + " LIVES: " + str(self.lives), False, white)
             self.screen.blit(font_surface, (205, 5))
 
     def show_message(self, message):
         if self.font:
             size = self.font.size(message)
-            font_surface = self.font.render(message, False, WHITE)
+            font_surface = self.font.render(message, False, white)
             x = (SCREEN_SIZE[0] - size[0]) / 2
             y = (SCREEN_SIZE[1] - size[1]) / 2
             self.screen.blit(font_surface, (x, y))
@@ -139,8 +141,7 @@ class PingBall:
                     pg.quit()
                     sys.exit()
 
-            self.clock.tick(60)
-            self.screen.fill(BLACK)
+            self.screen.fill(black)
             self.check_input()
 
             if self.state == STATE_PLAYING:
@@ -156,11 +157,14 @@ class PingBall:
                 self.show_message("YOU WON! PRESS R TO PLAY AGAIN")
 
             self.draw_bricks()
-            pg.draw.rect(self.screen, BLUE, self.paddle)
-            pg.draw.circle(self.screen, WHITE, (self.ball.left + BALL_RADIUS, self.ball.top + BALL_RADIUS),BALL_RADIUS)
+            pg.draw.rect(self.screen, blue, self.paddle)
+            pg.draw.circle(self.screen, white, (self.ball.left +
+                                                BALL_RADIUS, self.ball.top + BALL_RADIUS), BALL_RADIUS)
             self.show_stats()
 
+            self.clock.tick(60)
             pg.display.update()
+
 
 if __name__ == "__main__":
     PingBall().run()
