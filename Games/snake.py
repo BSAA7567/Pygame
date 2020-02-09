@@ -118,7 +118,7 @@ def run():
 
         GAME.fill(white)
 
-        for sb in snakeBody:
+        for sb in snakeBody[1:]:
             pg.draw.rect(GAME, green, pg.Rect(sb[0], sb[1], objSize, objSize))
 
         pg.draw.rect(GAME, red, pg.Rect(
@@ -143,7 +143,7 @@ def run():
         FPS.tick(30)
 
 
-def main():
+if __name__ == "__main__":
     global GAME, FPS
 
     pg.init()
@@ -152,7 +152,3 @@ def main():
     FPS = pg.time.Clock()
 
     run()
-
-
-if __name__ == "__main__":
-    main()

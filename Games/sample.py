@@ -91,7 +91,7 @@ def run():
         FPS.tick(60)
 
 
-def main():
+if __name__ == "__main__":
     global GAME, FPS
 
     pg.init()
@@ -100,7 +100,3 @@ def main():
     FPS = pg.time.Clock()
 
     run()
-
-
-if __name__ == "__main__":
-    main()
