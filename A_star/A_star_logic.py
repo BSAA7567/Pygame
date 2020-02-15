@@ -11,6 +11,7 @@ class Node():
     def __eq__(self, other):
         return self.position == other.position
 
+
 def astar(maze, start, end):
     start_node = Node(None, start)  # 시작 노드 생성
     start_node.g = start_node.h = start_node.f = 0
@@ -25,7 +26,8 @@ def astar(maze, start, end):
     while len(open_list) > 0:  # 오픈 리스트에 노드가 없을때 종료
         current_node = open_list[0]
         current_index = 0
-        for index, item in enumerate(open_list):  # 오픈 리스트 노드들중에 가장 최소 비용 F를 가진 노드를 찾는다
+        # 오픈 리스트 노드들중에 가장 최소 비용 F를 가진 노드를 찾는다
+        for index, item in enumerate(open_list):
             if item.f < current_node.f:
                 current_node = item
                 current_index = index
@@ -44,7 +46,8 @@ def astar(maze, start, end):
         children = []
         for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]:  # 동서남북 그리고 대각선 방향으로 한칸씩 이동
 
-            node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
+            node_position = (
+                current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
             if node_position[0] > (len(maze) - 1) or node_position[0] < 0 \
                     or node_position[1] > (len(maze[len(maze) - 1]) - 1) or node_position[1] < 0:  # 이동될 지점이 maze 바깥일때
@@ -52,9 +55,8 @@ def astar(maze, start, end):
 
             if maze[node_position[0]][node_position[1]] == 1:  # 이동될 지점이 벽일때
                 continue
-            elif node_position[1]==start[1]-1 and current_node.position==start_node.position:
+            elif node_position[1] == start[1]-1 and current_node.position == start_node.position:
                 continue
-
 
             new_node = Node(current_node, node_position)
 
@@ -69,7 +71,7 @@ def astar(maze, start, end):
             if check == False:
                 child.g = current_node.g + 1
                 child.h = ((child.position[0] - end_node.position[1]) ** 2) + (
-                            (child.position[1] - end_node.position[0]) ** 2)  # 수평방향은 10, 대각선은 12
+                    (child.position[1] - end_node.position[0]) ** 2)  # 수평방향은 10, 대각선은 12
                 child.f = child.g + child.h
 
                 for open_node in open_list:
@@ -78,7 +80,8 @@ def astar(maze, start, end):
 
                 open_list.append(child)
 
-def main(maze,start,end):
+
+def main(maze, start, end):
     path = astar(maze, start, end)  # a star 탐색 결과
     return path
     #print("도착지까지의 최소 경로는 : ", path)  # 경로 출력

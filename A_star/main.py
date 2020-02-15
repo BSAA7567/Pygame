@@ -19,10 +19,11 @@ path_color = (255, 50, 50)
 
 resolution = (width, height)
 
-start_point=(2,1)
-end_point=((height//grid_size-3),(width//grid_size)-2)
+start_point = (2, 1)
+end_point = ((height//grid_size-3), (width//grid_size)-2)
 
 ran_maze = RandomMaze(width // grid_size, height // grid_size)
+
 
 def get_maze_method(option):  # 선택 값에 따른 알고리즘으로 미로 제작
     if option == 1:
@@ -32,15 +33,16 @@ def get_maze_method(option):  # 선택 값에 따른 알고리즘으로 미로 �
     else:
         return None
 
+
 def main(maze_method, speed=0.010, mode=0):
     pygame.init()
-    check =0
+    check = 0
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption("A_star_Maze")
     clock = pygame.time.Clock()
     maze, cell_list = maze_method()  # 랜덤으로 생성된 2차원 리스트 미로와 xxx 좌표가 담긴 리스트를 받는다
 
-    path = A_star_logic.main(maze,start_point,end_point)
+    path = A_star_logic.main(maze, start_point, end_point)
     index = 0
     maze_finished = False
 
@@ -60,7 +62,7 @@ def main(maze_method, speed=0.010, mode=0):
             maze, cell_list = maze_method()
             path = A_star_logic.main(maze, start_point, end_point)
             maze_finished = False
-            check=0
+            check = 0
         elif press_key[pygame.K_d]:
             main(maze_method=get_maze_method(DFS), mode=1)
             pass
@@ -77,9 +79,11 @@ def main(maze_method, speed=0.010, mode=0):
         # draw the cell
         for i in range(index + 1):
             if mode == 0:
-                grid_view.fill_a_cell(cell_list[i][1], cell_list[i][0], cell_color)
+                grid_view.fill_a_cell(
+                    cell_list[i][1], cell_list[i][0], cell_color)
             else:
-                grid_view.fill_a_cell(cell_list[i][1], cell_list[i][0], background_color)
+                grid_view.fill_a_cell(
+                    cell_list[i][1], cell_list[i][0], background_color)
 
         # draw the grid
         grid_view.draw()
@@ -87,11 +91,12 @@ def main(maze_method, speed=0.010, mode=0):
         # draw the path
         if maze_finished and path:
                 for i in range(len(path)):
-                    grid_view.fill_a_cell_with_circle(path[i][1], path[i][0], path_color)
+                    grid_view.fill_a_cell_with_circle(
+                        path[i][1], path[i][0], path_color)
                     pygame.display.update()
                     sleep(0.1)
-                maze_finished=False
-                check=1
+                maze_finished = False
+                check = 1
 
         time_passed_seconds = clock.tick() / 1000.0
         pass_time += time_passed_seconds
@@ -99,7 +104,7 @@ def main(maze_method, speed=0.010, mode=0):
         if pass_time >= speed:
             pass_time = 0
 
-            if index >= len(cell_list) - 1 and check==0:
+            if index >= len(cell_list) - 1 and check == 0:
                     maze_finished = True
                     print("랜덤으로 생성된 미로 탐색 비용은 : "+str(len(path)))
 
@@ -107,9 +112,10 @@ def main(maze_method, speed=0.010, mode=0):
                 index += 1
                 pygame.display.update()
 
+
 if __name__ == '__main__':
     method = get_maze_method(DFS)  # 미로를 제작할 알고리즘 선택
-    
+
     if method:
         main(maze_method=method, mode=1)
     else:
