@@ -49,7 +49,7 @@ class PingBall:
 
         self.paddle = pg.Rect(300, PADDLE_Y, PADDLE_WIDTH, PADDLE_HEIGHT)
         self.ball = pg.Rect(300, PADDLE_Y - BALL_SIZE, BALL_SIZE, BALL_SIZE)
-        self.ball_move = [5, -5]
+        # self.ball_move = [5, -5]
 
         self.create_bricks()
 
@@ -122,8 +122,7 @@ class PingBall:
 
     def show_stats(self):
         if self.font:
-            font_surface = self.font.render(
-                "SCORE: " + str(self.score) + " LIVES: " + str(self.lives), False, white)
+            font_surface = self.font.render("SCORE: " + str(self.score) + " LIVES: " + str(self.lives), False, white)
             self.screen.blit(font_surface, (205, 5))
 
     def show_message(self, message):
@@ -158,8 +157,7 @@ class PingBall:
 
             self.draw_bricks()
             pg.draw.rect(self.screen, blue, self.paddle)
-            pg.draw.circle(self.screen, white, (self.ball.left +
-                                                BALL_RADIUS, self.ball.top + BALL_RADIUS), BALL_RADIUS)
+            pg.draw.circle(self.screen, white, (self.ball.left + BALL_RADIUS, self.ball.top + BALL_RADIUS), BALL_RADIUS)
             self.show_stats()
 
             self.clock.tick(60)
