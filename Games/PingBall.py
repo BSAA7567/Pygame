@@ -129,8 +129,8 @@ class PingBall:
         if self.font:
             size = self.font.size(message)
             font_surface = self.font.render(message, False, white)
-            x = (SCREEN_SIZE[0] - size[0]) / 2
-            y = (SCREEN_SIZE[1] - size[1]) / 2
+            x = (WIDTH - size[0]) // 2
+            y = (HEIGHT - size[1]) // 2
             self.screen.blit(font_surface, (x, y))
 
     def run(self):
