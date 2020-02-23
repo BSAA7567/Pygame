@@ -46,8 +46,7 @@ def astar(maze, start, end):
         children = []
         for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]:  # 동서남북 그리고 대각선 방향으로 한칸씩 이동
 
-            node_position = (
-                current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
+            node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
             if node_position[0] > (len(maze) - 1) or node_position[0] < 0 \
                     or node_position[1] > (len(maze[len(maze) - 1]) - 1) or node_position[1] < 0:  # 이동될 지점이 maze 바깥일때
@@ -59,7 +58,6 @@ def astar(maze, start, end):
                 continue
 
             new_node = Node(current_node, node_position)
-
             children.append(new_node)  # 자식 노드에 이동할 지점 즉 이동 노드 값 대입
 
         for child in children:
@@ -74,9 +72,9 @@ def astar(maze, start, end):
                     (child.position[1] - end_node.position[0]) ** 2)  # 피타고라스 정리에 의해 수평과 수직 경로의 가중치 설정
                 child.f = child.g + child.h
 
-                for open_node in open_list:
-                    if child == open_node and child.g > open_node.g:
-                        continue
+                # for open_node in open_list:
+                #     if child == open_node and child.g > open_node.g:
+                #         continue
 
                 open_list.append(child)
 
