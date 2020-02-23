@@ -71,7 +71,7 @@ def astar(maze, start, end):
             if check == False:
                 child.g = current_node.g + 1
                 child.h = ((child.position[0] - end_node.position[1]) ** 2) + (
-                    (child.position[1] - end_node.position[0]) ** 2)  # 수평방향은 10, 대각선은 12
+                    (child.position[1] - end_node.position[0]) ** 2)  # 피타고라스 정리에 의해 수평과 수직 경로의 가중치 설정
                 child.f = child.g + child.h
 
                 for open_node in open_list:
