@@ -165,7 +165,7 @@ class MAZE:
                 sleep(speed)
 
     def show(self):  # display Move count string
-        showcount = self.font.render("Move:" + str(self.cnt), False, gold)
+        showcount = self.font.render("Move:" + str(self.cnt), False, white)
         self.display.blit(showcount, (650, 500))
 
     def run(self):
@@ -190,13 +190,15 @@ class MAZE:
 
             if self.x == end_point[1] and self.y == end_point[0]:
                 print("도착!")
-                print("도착지까지의 들은 비용은 : " + str(self.cnt))
+                print("도착지까지의 들은 비용은 : " +str(self.cnt))
+
                 if self.cnt == answer:
                     print("\n최적의 경로 값입니다!")
-                    print("A * 알고리즘이 찾은 경로는 : "+str(answer_path))
-                    print("플레이어가 찾은 경로는 : "+str(self.path))
+                    print("A * 알고리즘이 찾은 경로는 : " +str(answer_path))
+                    print("플레이어가 찾은 경로는 : " +str(self.path))
                 else:
                     print("\n최적의 경로 값은 아닙니다...")
+
                 sys.exit()
 
             # draw last move point
@@ -222,6 +224,6 @@ if __name__ == "__main__":  # start main
 
     answer_path = A_star_logic.main(
         make_maze, start_point, end_point)  # a star 알고리즘 경로
-    answer = len(A_star_logic.main(make_maze, start_point,
-                                   end_point)) - 1  # a star 알고리즘 경로 길이 값
+    answer = len(answer_path)-1  # a star 알고리즘 경로 길이 값
+
     MAZE().run()
