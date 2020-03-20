@@ -93,8 +93,6 @@ class MAZE:
                 sleep(speed)
             else:
                 make_maze[self.y][self.x] = 2
-                pygame.draw.circle(self.display, white,
-                                   (self.player_x, self.player_y), player_size)
                 self.player_x += box_size
                 self.x += 1
                 self.cnt += 1
@@ -114,8 +112,6 @@ class MAZE:
                 sleep(speed)
             else:
                 make_maze[self.y][self.x] = 2
-                pygame.draw.circle(self.display, white,
-                                   (self.player_x, self.player_y), player_size)
                 self.player_x -= box_size
                 self.x -= 1
                 self.cnt += 1
@@ -135,8 +131,6 @@ class MAZE:
                 sleep(speed)
             else:
                 make_maze[self.y][self.x] = 2
-                pygame.draw.circle(self.display, white,
-                                   (self.player_x, self.player_y), player_size)
                 self.player_y -= box_size
                 self.y -= 1
                 self.cnt += 1
@@ -156,8 +150,6 @@ class MAZE:
                 sleep(speed)
             else:
                 make_maze[self.y][self.x] = 2
-                pygame.draw.circle(self.display, white,
-                                   (self.player_x, self.player_y), player_size)
                 self.player_y += box_size
                 self.y += 1
                 self.cnt += 1
