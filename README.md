@@ -1,9 +1,9 @@
 # Pygame
     Using pygame for make Games (For Study)
 # Prerequisites
-      Python 3.X
-
-      Pygame
+    Python V3.x.x
+    
+    Pygame V1.9.6
 # Open-Source library
 https://github.com/ragnraok/RandomMaze
 
